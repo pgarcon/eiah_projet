@@ -7,6 +7,7 @@ traces keylogs :
 - Pourcentage de copier-coller (nb copier/coller)/(Nb traces) => coper/coller = beaucoup de texte dans un seul insert
 - Quantité moyenne de texte insérer par traces
 - Temps d'ouverture d'un fichier (fin de modif - début de mofif) : Si le temps est trop long : gros blocage ?
+- Nombre de sauvegarde
 
 trace terminal :
 
@@ -16,4 +17,4 @@ trace terminal :
 
 Traces snapshot :
 
-- Nombre de snapshots (en c)
+- Poids de fichier le plus lourd (en C)
