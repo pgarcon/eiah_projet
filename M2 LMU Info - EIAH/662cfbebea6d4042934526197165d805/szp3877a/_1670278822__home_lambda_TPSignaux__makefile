@@ -1,0 +1,9 @@
+all: 
+	gcc -o signal1 signal1.c
+signal1: signal1.o
+	gcc -o signal1 signal1.o
+signal1.o:
+	gcc -c signal1.c
+clean:
+	rm signal1
+	rm *.o

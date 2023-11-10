@@ -1,0 +1,7 @@
+all : exo1.c exo1.o
+	gcc -g -o exo1.c
+	touch maketimep
+supAnalyse :
+	rm -f maketimep
+clean :
+	rm -f *.o

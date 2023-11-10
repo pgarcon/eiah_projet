@@ -1,0 +1,13 @@
+all:
+	gcc -o proc3 proc3.c p3fils1.c
+proc3: proc2.o
+	gcc -o proc3 proc3.o
+p3fils1: p2fils1.o
+	gcc -o p3fils1 p3fils1.o
+proc3.o:
+	gcc -c proc3.c
+p2fils1.o:
+	gcc -c p3fils1.c
+clean:
+	rm proc3 p3fils1
+	rm *.o

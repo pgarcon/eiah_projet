@@ -1,0 +1,16 @@
+all: 
+	gcc -o signal1 signal1.c
+	gcc -o signal2 signal2.c
+signal1: signal1.o
+	gcc -o signal1 signal1.o
+signal1.o:
+	gcc -c signal1.c
+signal2: signal2.o
+	gcc -o signal2 signal2.o
+signal2.o:
+	gcc -c signal2.c
+clean:
+	rm *.o
+	rm signal1
+	rm signal2
+

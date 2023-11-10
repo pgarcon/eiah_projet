@@ -1,0 +1,3 @@
+ls
+man adduser
+exit

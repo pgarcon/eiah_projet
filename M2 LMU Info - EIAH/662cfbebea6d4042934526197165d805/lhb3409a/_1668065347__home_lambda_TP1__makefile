@@ -1,0 +1,10 @@
+sur = $(wildcard *.c)
+bin = $(patsubst %.c,%.o,${sur})
+
+all : ${bin}
+	gcc -g -o exo1 $^
+	touch maketimep
+supAnalyse :
+	rm -f maketimep
+clean :
+	rm -f *.o

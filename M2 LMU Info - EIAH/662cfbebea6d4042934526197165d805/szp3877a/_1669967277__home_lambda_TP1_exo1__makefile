@@ -1,0 +1,9 @@
+all: 
+	gcc -o pere pere.c
+pere: pere.o
+	gcc -o pere pere.o
+pere.o:
+	gcc -c pere.c
+clean:
+	rm pere
+	rm *.o

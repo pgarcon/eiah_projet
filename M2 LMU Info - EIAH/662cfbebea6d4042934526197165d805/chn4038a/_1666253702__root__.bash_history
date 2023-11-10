@@ -1,0 +1,3 @@
+adduser
+adduser lambda
+exit

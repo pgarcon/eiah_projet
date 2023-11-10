@@ -1,0 +1,17 @@
+all:
+	gcc -o proc2 proc2.c p2fils1.c p2fils2.c
+proc2: proc2.o
+	gcc -o proc2 proc2.o
+p2fils1: p2fils1.o
+	gcc -o p2fils1 p2fils1.o
+p2fils2: p2fils2.o
+	gcc -o p2fils2 p2fils2.o
+proc2.o:
+	gcc -c proc2.c
+p2fils1.o:
+	gcc -c p2fils1.c
+p2fils2.o:
+	gcc -c p2fils2.c
+clean:
+	rm proc2 p2fils1 p2fils2
+	rm *.o

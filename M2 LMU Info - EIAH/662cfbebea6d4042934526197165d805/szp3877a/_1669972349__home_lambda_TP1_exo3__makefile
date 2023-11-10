@@ -1,0 +1,9 @@
+all:
+	gcc -o proc3 proc3.c
+proc3: proc3.o
+	gcc -o proc3 proc3.o
+proc3.o:
+	gcc -c proc3.c
+clean:
+	rm proc3
+	rm *.o

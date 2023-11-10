@@ -1,0 +1,9 @@
+all:
+	gcc -o procfinal proc4.c
+procfinal: proc4.o
+	gcc -o procfinal procfinal.o
+procfinal.o:
+	gcc -c procfinal.c
+clean:
+	rm procfinal
+	rm *.o

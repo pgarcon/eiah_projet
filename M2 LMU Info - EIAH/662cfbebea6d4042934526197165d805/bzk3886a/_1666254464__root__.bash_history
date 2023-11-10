@@ -1,0 +1,3 @@
+ls
+su lambda
+exit
