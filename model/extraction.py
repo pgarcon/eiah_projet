@@ -1,9 +1,17 @@
 import pandas as pd
 from pandas import json_normalize
+from datetime import datetime
 import json
 import numpy as np
 import re
 
+
+def nb_traces(username, array):
+    res = 0
+    for element in array:
+        if element['username'] == username:
+            res+=1
+    return res
 
 
 def nb_suppr(username, array):
@@ -16,6 +24,41 @@ def nb_suppr(username, array):
                     res += 1
     return res
 
+def tmp_moy_2_traces(username, array):
+    temps_tot = 0
+    nb_traces = 0 #on peut laisser 0 car si le user est parcouru, alors il a forcement une trace, donc jamais de division par 0
+    time_stamp_courant = None
+    time_stamp_prec = None
+    is_set_ts = False
+    for element in array:
+        if element['username'] == username:
+            time_stamp_courant = datetime.strptime(element['timestamp'], "%Y-%m-%dT%H:%M:%S.%fZ")
+            nb_traces+=1
+
+            if is_set_ts:
+                difference = time_stamp_courant-time_stamp_prec
+                temps_tot += difference.total_seconds()
+                time_stamp_prec = time_stamp_courant
+            else:
+                is_set_ts = True
+                time_stamp_prec = time_stamp_courant
+
+    return temps_tot/nb_traces
+
+def nb_copy_paste(username, array):
+    res = 0
+    for element in array:
+        if element['username'] == username:
+            changes_part = element.get('changes', [])
+            for change in changes_part:
+                if change['change']['action'] == "insert":
+                    insertion = change['change'].get('lines', [])
+                    if len(insertion) > 1:
+                        res+=1
+                    else:
+                        if len(insertion[0]) > 2:
+                            res +=1
+    return res
 
 
 
@@ -26,17 +69,6 @@ regex_username = ".*[0-9].*"
 
 with open(vm_interaction_json, 'r') as fichier:
     vm_interaction = json.load(fichier)
-
-#df_instructions['username'] = df_instructions['username'].str.strip()
-
-#df_instructions_filtre = df_instructions[df_instructions['username'].str.contains(regex_username)]
-#df_vmInteractions_filtre = df_vmInteractions[df_vmInteractions['username'].str.contains(regex_username)]
-
-
-#df_traite = df_instructions_filtre.drop_duplicates(subset='username')[['username']]
-#df_traite = df_traite.reset_index(drop=True)
-
-#df_traite['nb_remove'] = df_traite.apply(lambda row: nb_suppr(row['username'], df_vmInteractions_filtre), axis=1)
     
 numpy_array = np.array(vm_interaction)
 
@@ -53,13 +85,15 @@ for entry in numpy_array:
 donnees_traite = np.array(list(unique_usernames))
 
 df = pd.DataFrame(donnees_traite, columns=['username'])
-print(df)
 
-for name in unique_usernames:
-    nb = nb_suppr(name, numpy_array)
-    print(nb)
+#for name in unique_usernames:
+#    nb = nb_copy_paste(name, numpy_array)
+#    print(nb)
 
+df['nb_traces'] = df['username'].apply(lambda name: nb_traces(name, vm_interaction))
 df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interaction))
+df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
+df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
 
 print(df)
 
