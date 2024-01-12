@@ -102,8 +102,8 @@ df['nb_traces'] = df['username'].apply(lambda name: nb_traces(name, vm_interacti
 df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interaction))
 df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
 df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
-df['save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
+df['nb_save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
+
+df.to_csv('indicateurs.csv', index=False)
 
 print(df)
-
-
