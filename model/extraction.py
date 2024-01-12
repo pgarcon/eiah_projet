@@ -60,6 +60,14 @@ def nb_copy_paste(username, array):
                             res +=1
     return res
 
+def nb_save(username, array):
+    save = 0
+    for element in array:
+        if element['username'] == username and element['action'] == "saveFile":
+            save += 1
+    return save
+
+
 
 
 instruction_json = "../data/instructions.json"
@@ -94,6 +102,7 @@ df['nb_traces'] = df['username'].apply(lambda name: nb_traces(name, vm_interacti
 df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interaction))
 df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
 df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
+df['save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
 
 print(df)
 
