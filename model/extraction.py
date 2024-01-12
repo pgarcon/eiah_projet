@@ -60,7 +60,22 @@ def nb_copy_paste(username, array):
                             res +=1
     return res
 
+def quantite_texte(username, array):
+    res = 0
+    cpt = 0
+    for element in array:
+        if element['username'] == username:
+            changes_part = element.get('changes', [])
+            for change in changes_part:
+                if change['change']['action'] == "insert":
+                    insertion = change['change'].get('lines', [])                    
+                    res += len(insertion)
+                    cpt += 1
+                    
+    if(cpt != 0):
+        res = res/cpt
 
+    return res
 
 instruction_json = "../data/instructions.json"
 vm_interaction_json = "../data/vmInteractions.json"
@@ -94,6 +109,7 @@ df['nb_traces'] = df['username'].apply(lambda name: nb_traces(name, vm_interacti
 df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interaction))
 df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
 df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
+df['quantite'] = df['username'].apply(lambda name: quantite_texte(name, vm_interaction))
 
 print(df)
 
