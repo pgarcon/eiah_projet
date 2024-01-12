@@ -145,7 +145,7 @@ df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interact
 df['nb_save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
 df['nb_gcc_error'] = df['username'].apply(lambda name: nb_gcc_error(name, instructions))
 df['quantite'] = df['username'].apply(lambda name: quantite_texte(name, vm_interaction))
-df['save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
+df['nb_save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
 
 print(df)
 

@@ -5,7 +5,7 @@ from sklearn.neighbors import NearestNeighbors
 from sklearn.preprocessing import StandardScaler
 import matplotlib.pyplot as plt
 
-nb_cluster = 4
+nb_cluster = 5
 
 #On récupère les données
 data = pd.read_csv("indicateurs.csv")
@@ -18,7 +18,7 @@ os.makedirs(output_folder, exist_ok=True)
 data.reset_index(drop=True, inplace=True)
 
 # Sélectionner les colonnes nécessaires pour le clustering
-features = data[['nb_traces', 'nb_remove', 'tmp_moy', 'cp_pst', 'nb_save']]
+features = data[['nb_traces', 'nb_remove', 'tmp_moy', 'cp_pst', 'nb_save', 'quantite', 'nb_gcc_error']]
 
 # Normaliser les données
 scaler = StandardScaler()

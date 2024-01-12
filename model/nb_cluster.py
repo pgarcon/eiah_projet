@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 data = pd.read_csv("indicateurs.csv")
 
 # Les colonnes que l'on utilise
-donnee = data[['nb_traces', 'nb_remove', 'tmp_moy', 'cp_pst', 'nb_save']]
+donnee = data[['nb_traces', 'nb_remove', 'tmp_moy', 'cp_pst', 'nb_save', 'quantite', 'nb_gcc_error']]
 
 # Normalisation des données
 scaler = StandardScaler()
