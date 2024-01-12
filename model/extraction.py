@@ -60,6 +60,23 @@ def nb_copy_paste(username, array):
                             res +=1
     return res
 
+def nb_gcc_error(username, array):
+    nb_error = 0
+    nb_gcc = 0
+    res = 0
+    for element in array:
+        if element['username'] == username:
+            action = element.get('command')
+            if action == 'gcc':
+                nb_gcc += 1
+                if element.get('response') != "":
+                    nb_error += 1
+
+    if nb_gcc != 0:
+        res = nb_error/nb_gcc
+
+    return res
+
 
 
 instruction_json = "../data/instructions.json"
@@ -69,6 +86,9 @@ regex_username = ".*[0-9].*"
 
 with open(vm_interaction_json, 'r') as fichier:
     vm_interaction = json.load(fichier)
+
+with open(instruction_json, 'r') as fichier:
+    instructions = json.load(fichier)
     
 numpy_array = np.array(vm_interaction)
 
@@ -94,6 +114,7 @@ df['nb_traces'] = df['username'].apply(lambda name: nb_traces(name, vm_interacti
 df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interaction))
 df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
 df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
+df['nb_gcc_error'] = df['username'].apply(lambda name: nb_gcc_error(name, instructions))
 
 print(df)
 
