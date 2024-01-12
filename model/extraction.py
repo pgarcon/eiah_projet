@@ -60,6 +60,7 @@ def nb_copy_paste(username, array):
                             res +=1
     return res
 
+
 def nb_gcc_error(username, array):
     nb_error = 0
     nb_gcc = 0
@@ -76,6 +77,33 @@ def nb_gcc_error(username, array):
         res = nb_error/nb_gcc
 
     return res
+
+
+def quantite_texte(username, array):
+    res = 0
+    cpt = 0
+    for element in array:
+        if element['username'] == username:
+            changes_part = element.get('changes', [])
+            for change in changes_part:
+                if change['change']['action'] == "insert":
+                    insertion = change['change'].get('lines', [])                    
+                    res += len(insertion)
+                    cpt += 1
+                    
+    if(cpt != 0):
+        res = res/cpt
+
+    return res
+
+
+
+def nb_save(username, array):
+    save = 0
+    for element in array:
+        if element['username'] == username and element['action'] == "saveFile":
+            save += 1
+    return save
 
 
 
@@ -115,6 +143,8 @@ df['nb_remove'] = df['username'].apply(lambda name: nb_suppr(name, vm_interactio
 df['tmp_moy'] = df['username'].apply(lambda name: tmp_moy_2_traces(name, vm_interaction))
 df['cp_pst'] = df['username'].apply(lambda name: nb_copy_paste(name, vm_interaction))
 df['nb_gcc_error'] = df['username'].apply(lambda name: nb_gcc_error(name, instructions))
+df['quantite'] = df['username'].apply(lambda name: quantite_texte(name, vm_interaction))
+df['save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
 
 print(df)
 

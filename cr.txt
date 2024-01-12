@@ -2,12 +2,13 @@ Pour les features :
 
 traces keylogs :
 
-- Nombre de suppression (remove)
-- temps moyen entre 2 traces
-- Pourcentage de copier-coller (nb copier/coller)/(Nb traces) => coper/coller = beaucoup de texte dans un seul insert
+- Nombre de trace
+- Nombre de suppression (remove) DONE
+- temps moyen entre 2 traces DONE
+- Pourcentage de copier-coller (nb copier/coller)/(Nb traces) => coper/coller = beaucoup de texte dans un seul insert DONE
 - Quantité moyenne de texte insérer par traces
 - Temps d'ouverture d'un fichier (fin de modif - début de mofif) : Si le temps est trop long : gros blocage ?
-- Nombre de sauvegarde
+- Nombre de sauvegarde DONE
 
 trace terminal :
 
