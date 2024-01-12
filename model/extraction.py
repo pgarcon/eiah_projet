@@ -56,7 +56,7 @@ def nb_copy_paste(username, array):
                     if len(insertion) > 1:
                         res+=1
                     else:
-                        if len(insertion[0]) > 2:
+                        if len(insertion[0]) > 4:
                             res +=1
     return res
 
@@ -85,11 +85,14 @@ def quantite_texte(username, array):
     for element in array:
         if element['username'] == username:
             changes_part = element.get('changes', [])
+            flag = True
             for change in changes_part:
                 if change['change']['action'] == "insert":
                     insertion = change['change'].get('lines', [])                    
                     res += len(insertion)
-                    cpt += 1
+                    if (flag):
+                        cpt += 1
+                        flag = False
                     
     if(cpt != 0):
         res = res/cpt
@@ -147,8 +150,6 @@ df['nb_gcc_error'] = df['username'].apply(lambda name: nb_gcc_error(name, instru
 df['quantite'] = df['username'].apply(lambda name: quantite_texte(name, vm_interaction))
 df['nb_save'] = df['username'].apply(lambda name: nb_save(name, vm_interaction))
 
-print(df)
+print(df[df['username'] == "frg4266a"])
 
 df.to_csv('indicateurs.csv', index=False)
-
-print(df)
